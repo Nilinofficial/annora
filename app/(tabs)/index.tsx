@@ -1,19 +1,24 @@
 
 import AllPhotos from "@/components/gallery/AllPhotos";
 import PhotoViewer from "@/components/photoViewer/PhotoViewer";
+import { useThemeColor } from "@/hooks/use-theme-color";
 import { deletePhoto, sharePhoto } from "@/utils/photoActions";
-
 import { Image } from 'expo-image';
 import * as MediaLibrary from "expo-media-library";
+import { MoreVertical } from "lucide-react-native";
 import { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+
 export default function HomeScreen() {
   const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
   const [photos, setPhotos] = useState<any>([]);
   const [after, setAfter] = useState<string | undefined>();
   const [hasNextPage, setHasNextPage] = useState(true);
   const [selectedPhoto, setSelectedPhoto] = useState<any>(null);
+
+  const textColor = useThemeColor({}, "text");
 
   const loadPhotos = async () => {
     if (permissionResponse?.status !== "granted") {
@@ -56,12 +61,28 @@ export default function HomeScreen() {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Image
-          contentFit="contain"
-          source={require("../../assets/images/annora.png")}
-          style={styles.logo}
-        />
+        <View style={styles.leftSection}>
+          <Image
+            contentFit="contain"
+            source={require("../../assets/images/Annora.png")}
+            style={styles.logo}
+          />
+
+          <Text
+            style={{
+              color: textColor,
+              fontSize: 28,
+              fontWeight: "500",
+              letterSpacing: 1,
+            }}
+          >
+            Annora
+          </Text>
+        </View>
+
+        <MoreVertical color={textColor} size={24} />
       </View>
+
 
       <AllPhotos photos={photos} onPressPhoto={setSelectedPhoto} />
 
@@ -78,14 +99,21 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 0,
+    padding: 4,
+    paddingBottom: 8,
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
+  },
+
+  leftSection: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   logo: {
-    width: 120,
-    height: 100,
+    width: 50,
+    height: 40,
     resizeMode: "contain",
   },
   modalContainer: {

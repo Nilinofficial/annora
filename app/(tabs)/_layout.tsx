@@ -1,10 +1,8 @@
-import { Tabs } from "expo-router";
-import React from "react";
-
-
-import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
+import { Tabs } from "expo-router";
+import { Folder, Images } from "lucide-react-native";
+import React from "react";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -14,24 +12,28 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
-
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "600",
+        },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
+          title: "Gallery",
+          tabBarIcon: ({ color, size }) => (
+            <Images color={color} size={size} />
           ),
         }}
       />
+
       <Tabs.Screen
         name="folders"
         options={{
           title: "Folders",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="paperplane.fill" color={color} />
+          tabBarIcon: ({ color, size }) => (
+            <Folder color={color} size={size} />
           ),
         }}
       />

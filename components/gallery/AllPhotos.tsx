@@ -9,13 +9,13 @@ import {
 
 const AllPhotos = ({ photos, onPressPhoto }: any) => {
   const gap = 4;
-  const size = (Dimensions.get("window").width - gap * 4) / 3;
+  const size = (Dimensions.get("window").width - gap * 5) / 4;
 
   return (
     <FlatList
       data={photos}
       keyExtractor={(item) => item.id}
-      numColumns={3}
+      numColumns={4}
       renderItem={({ item }) => (
         <Pressable onPress={() => onPressPhoto(item)}>
           <Image
